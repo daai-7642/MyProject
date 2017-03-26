@@ -1,0 +1,13 @@
+﻿@model List<AB_Entity.Sys_DicTypes>
+<label for="firstname" class="col-sm-2 control-label"></label>
+<div class="col-sm-10">
+    @foreach (var type in Model)
+    {
+        <div class="radio-inline">
+            <label>
+                <input type="radio" name="TypeId @type.TypeId" value="@type.TypeId" />@type.Sys_Dic_Name
+            </label>
+        </div>
+    }
+
+</div>

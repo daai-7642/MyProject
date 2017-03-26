@@ -1,0 +1,19 @@
+﻿@using Webdiyer.WebControls.Mvc;
+@using AB_Entity; 
+@model PagedList<ChargeInfo>
+@{
+    ViewBag.Title = "Home Page";
+}
+<h4>数据展示</h4>
+<hr />
+<div id="content">
+    @Html.Partial("ChargePage", @Model)
+
+</div>
+@{Html.RegisterMvcPagerScriptResource();}
+
+
+
+<script>
+
+</script>

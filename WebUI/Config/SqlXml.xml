@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sql>
+  <SysDicType_Repository.GetAllDicTypes>
+    SELECT TypeId,Sys_Dic_Name,ParentId from Sys_DicTypes where State=0
+  </SysDicType_Repository.GetAllDicTypes>
+</Sql>
