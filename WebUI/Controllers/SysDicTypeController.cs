@@ -13,6 +13,7 @@ namespace WebUI.Controllers
         public ActionResult GetDicTypesHtmlByPid(string ParentId)
         {
             var data = new SysDicType_Logic().GetDicTypesByPid(ParentId);
+            data.Add(new Sys_DicTypes() { Sys_Dic_Name = "其他", TypeId = "other" });
             return PartialView("RadioTemplete",data);
         }
     }

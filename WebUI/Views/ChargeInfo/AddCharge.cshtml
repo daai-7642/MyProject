@@ -65,12 +65,16 @@
 
 <script>
     function ShowDetailType(typeId) {
+        if (typeId == "other")
+        {
+            $("input[name='TypeIdOther']").show();
+            return;
+        }
         $.ajax({
             url: "/SysDicType/GetDicTypesHtmlByPid",
             data: { ParentId: typeId },
             success: function (html) {
                 $("div[name='type']").html(html);
-                console.log(html);
             }
         });
     }
