@@ -71,7 +71,7 @@
         $("input[name='TypeId']").val(data.TypeId)
         if (data.ParentId ==null)
         {
-            $("input[name='TypeIdOther']").css("display", "block");
+            $("div[name='type']").css("display", "block");
             $("input[name='TypeIdOther']").attr("required", "required");
             return;
         }

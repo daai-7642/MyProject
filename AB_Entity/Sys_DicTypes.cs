@@ -42,4 +42,16 @@ namespace AB_Entity
         /// </summary>
         public DateTime AutchTime { get; set; }
     }
+    public class DicTypeTree
+    {
+        public string id { get; set; }
+        public string text { get; set; }
+        public Dictionary<string,bool> State { get; set; }
+        public Tree tags { get; set; }
+        public List<DicTypeTree> nodes { get; set; }
+    }
+    public class Tree
+    {
+        public string id { get; set; }
+    }
 }

@@ -57,5 +57,6 @@ namespace AB_Entity
         /// 录入人
         /// </summary>
         public string CreateAuthor { get; set; }
+        public string TypeIdOther { get; set; }
     }
 }

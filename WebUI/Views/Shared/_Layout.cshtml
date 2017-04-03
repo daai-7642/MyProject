@@ -5,9 +5,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
+        @Styles.Render("~/Content/css")
+        <link href="~/Content/zTree.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/jquery.ztree.all-3.5.min.js"></script>
+    @Scripts.Render("~/Scripts/DataOperate")
     <style>
         a {
             cursor: pointer;
@@ -55,7 +59,7 @@
     </div>
 
   
-    @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

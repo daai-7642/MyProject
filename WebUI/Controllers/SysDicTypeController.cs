@@ -9,10 +9,16 @@ namespace WebUI.Controllers
 {
     public class SysDicTypeController : Controller
     {
+        SysDicType_Logic sysDicTypeLogic = new SysDicType_Logic();
+        public ActionResult Index()
+        {
+            ViewBag.dicList= System.Web.Helpers.Json.Encode(sysDicTypeLogic.GetAllDicTypeTreeList());
+            return View();
+        }
         // GET: SysDicType
         public ActionResult GetDicTypesHtmlByPid(string ParentId)
         {
-            var data = new SysDicType_Logic().GetDicTypesByPid(ParentId);
+            var data = sysDicTypeLogic.GetDicTypesByPid(ParentId);
             string typeId = "other";
             if(data!=null)
             {
@@ -21,5 +27,6 @@ namespace WebUI.Controllers
             data.Add(new Sys_DicTypes() { Sys_Dic_Name = "其他", TypeId = typeId });
             return PartialView("RadioTemplete",data);
         }
+          
     }
 }

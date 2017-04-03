@@ -57,5 +57,31 @@ namespace AB_Repository
             }
             return obj as List<Sys_DicTypes>;
         }
+        public List<DicTypeTree> GetAllDicTypeTreeList()
+        {
+            List<DicTypeTree> dicTypeList = new List<DicTypeTree>();
+            List<Sys_DicTypes> dicList = this.GetAllDicTypes();
+           var list=  GetTree(dicTypeList,"0");
+            return list;
+
+        }
+        private List<DicTypeTree> GetTree(List<DicTypeTree> dicTypeList, string typeId = "0")
+        {
+           
+            foreach (var item in this.GetAllDicTypes().Where(a => a.ParentId ==typeId))
+            {
+                DicTypeTree dicTypeTree = new DicTypeTree();
+                dicTypeTree.text = item.Sys_Dic_Name;
+                var nodes = GetTree(new List<DicTypeTree>(), item.TypeId);
+                dicTypeTree.nodes = nodes.Count()==0?null:nodes;
+                var state=new Dictionary<string, bool>();
+                state.Add("expanded", true);
+                dicTypeTree.tags = new Tree() { id=item.TypeId};
+                dicTypeTree.id = item.TypeId;
+                dicTypeTree.State = state;
+                dicTypeList.Add(dicTypeTree);
+            }
+            return dicTypeList;
+        }
     }
 }

@@ -1,0 +1,83 @@
+﻿ 
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+ </head>
+<body>
+    <div class="col-sm-4">
+        <h2>Default</h2>
+        <div id="treeview1" class=""></div>
+    </div>
+</body>
+</html>
+<script>
+    console.log(JsonToJson("@ViewBag.dicList"))
+    var defaultData =  JsonToJson("@ViewBag.dicList");
+    console.log(JSON.stringify(defaultData));
+    var defaultData1 = [
+  {
+      text: 'Parent 1',
+      href: '#parent1',
+      tags: ['4'],
+      nodes: [
+        {
+            text: 'Child 1',
+            href: '#child1',
+            tags: ['2'],
+            state: {
+                expanded: true,
+
+            },
+            nodes: [
+              {
+                  text: 'Grandchild 1',
+                  href: '#grandchild1',
+                  tags: ['0']
+              },
+              {
+                  text: 'Grandchild 2',
+                  href: '#grandchild2',
+                  tags: ['0']
+              }
+            ]
+        },
+        {
+            text: 'Child 2',
+            href: '#child2',
+            tags: ['0']
+        }
+      ]
+  },
+  {
+      text: 'Parent 2',
+      href: '#parent2',
+      tags: ['0'],
+      nodes: [
+       
+      ]
+  },
+  {
+      text: 'Parent 3',
+      href: '#parent3',
+      tags: ['0']
+  },
+  {
+      text: 'Parent 4',
+      href: '#parent4',
+      tags: ['0']
+  },
+  {
+      text: 'Parent 5',
+      href: '#parent5',
+      tags: ['0']
+  }
+    ];
+
+    $('#treeview1').treeview({
+        data: defaultData
+    });
+
+</script>
