@@ -20,5 +20,9 @@ namespace AB_Logic
         {
             return dicTypeRepository.GetDicTypesByPid(parentId);
         }
+        public List<Sys_DicTypes> GetDicTypesByPid(string parentId,out int hierarchy)
+        {
+            return dicTypeRepository.GetDicTypesByPid(parentId,out hierarchy);
+        }
     }
 }

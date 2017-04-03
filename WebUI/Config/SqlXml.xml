@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sql>
   <SysDicType_Repository.GetAllDicTypes>
-    SELECT TypeId,Sys_Dic_Name,ParentId from Sys_DicTypes where State=0
+    SELECT TypeId,Sys_Dic_Name,ParentId,Hierarchy,
+    case when exists (select 1 from Sys_DicTypes d where d.ParentId=dic.TypeId) then 'true' else 'false'  end
+    as IsChildren
+    from Sys_DicTypes dic where State=0
   </SysDicType_Repository.GetAllDicTypes>
 </Sql>

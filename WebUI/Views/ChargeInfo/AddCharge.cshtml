@@ -15,7 +15,7 @@
         </div>
         <label for="firstname" class="col-sm-2 control-label">消费金额</label>
         <div class="col-sm-4">
-            <input type="number" required min="1" name="ChargeTime"  placeholder="请输入消费金额" class="form-control" />
+            <input type="number" required min="1" name="Money"  placeholder="请输入消费金额" class="form-control" />
         </div>
 
     </div>
@@ -36,7 +36,8 @@
             {
                 <div class="radio-inline">
                     <label>
-                        <input type="radio" required name="TypeId" onclick="ShowDetailType('@type.TypeId')" value="@type.TypeId" />@type.Sys_Dic_Name
+                      
+                        <input type="radio" required name="TypeId" onclick="ShowDetailType('@Json.Encode(type)')" value="@type.TypeId" />@type.Sys_Dic_Name
                     </label>
                 </div>
             }
@@ -64,15 +65,21 @@
 </form>
 
 <script>
-    function ShowDetailType(typeId) {
-        if (typeId == "other")
+    function ShowDetailType(json) {
+
+        var data = JSON.parse(json);
+        $("input[name='TypeId']").val(data.TypeId)
+        if (data.ParentId ==null)
         {
-            $("input[name='TypeIdOther']").show();
+            $("input[name='TypeIdOther']").css("display", "block");
+            $("input[name='TypeIdOther']").attr("required", "required");
             return;
         }
+        if (!data.IsChildren)
+            return;
         $.ajax({
             url: "/SysDicType/GetDicTypesHtmlByPid",
-            data: { ParentId: typeId },
+            data: { ParentId: data.TypeId },
             success: function (html) {
                 $("div[name='type']").html(html);
             }

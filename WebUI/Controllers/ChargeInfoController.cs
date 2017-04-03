@@ -12,12 +12,12 @@ namespace WebUI.Controllers
         // GET: ChargeInfo
         public ActionResult AddCharge()
         {
-
             return View(new SysDicType_Logic().GetDicTypesByPid("0"));
         }
         [HttpPost]
         public ActionResult AddCharge(ChargeInfo charge)
         {
+            charge.CreateAuthor = User.Identity.Name;
             int result = new ChargeInfo_Logic().AddChargeInfo(charge);
             if (result > 0)
                 return Content("<script>alert('添加成功');location.href='/Home/index'</script>");

@@ -2,12 +2,12 @@
 <label for="firstname" class="col-sm-2 control-label"></label>
 <div class="col-sm-10">
     @foreach (var type in Model)
-    {
+    {@type.IsChildren
         <div class="radio-inline">
             <label>
-                <input type="radio" name="TypeId_@type.TypeId"  onclick="ShowDetailType('@type.TypeId')"  value="@type.TypeId" />@type.Sys_Dic_Name
+                <input type="radio" name="TypeId_@type.TypeId"  onclick="ShowDetailType('@Json.Encode(type)')"  value="@type.TypeId" />@type.Sys_Dic_Name
             </label>
         </div>
     }
-    <input type="text" name="TypeIdOther" hidden required placeholder="请输入其他信息" />
+    <input type="text" name="TypeIdOther" hidden  placeholder="请输入其他信息" />
 </div>

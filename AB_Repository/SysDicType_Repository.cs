@@ -21,6 +21,18 @@ namespace AB_Repository
         {
             return this.GetAllDicTypes().Where(a => a.ParentId == parentId).ToList();
         }
+        /// <summary>
+        /// 获取相应字典及最底层层级
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <param name="hierarchy"></param>
+        /// <returns></returns>
+        public List<Sys_DicTypes> GetDicTypesByPid(string parentId, out int hierarchy)
+        {
+            List<Sys_DicTypes> dicList = this.GetAllDicTypes();
+            hierarchy = dicList.Max(a => a.Hierarchy);
+            return dicList.Where(a => a.ParentId == parentId).ToList();
+        }
         public List<Sys_DicTypes> GetAllDicTypes()
         {
             string key = OperateHelper.GetThisFullMethodName();
@@ -36,6 +48,8 @@ namespace AB_Repository
                     dicType.TypeId = item["TypeId"].ToString();
                     dicType.Sys_Dic_Name = item["Sys_Dic_Name"].ToString();
                     dicType.ParentId = item["ParentId"].ToString();
+                    dicType.Hierarchy = Convert.ToInt32(item["Hierarchy"]);
+                    dicType.IsChildren = Convert.ToBoolean(item["IsChildren"]);
                     dicTypes.Add(dicType);
                 }
                 CacheHelper.AddPermanent(key, dicTypes);

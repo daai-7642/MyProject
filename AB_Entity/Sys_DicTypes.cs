@@ -22,6 +22,14 @@ namespace AB_Entity
         /// </summary>
         public string ParentId { get; set; }
         /// <summary>
+        /// 所属层级
+        /// </summary>
+        public int Hierarchy { get; set; }
+        /// <summary>
+        /// 是否有子
+        /// </summary>
+        public bool IsChildren { get; set; }
+        /// <summary>
         /// 作者
         /// </summary>
         public string Author { get; set; }
