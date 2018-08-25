@@ -41,7 +41,7 @@ namespace AB_Repository
             {
                 List<Sys_DicTypes> dicTypes = new List<Sys_DicTypes>();
                 string sql = OperateHelper.GetXmlSqlString(key);
-                DataTable dt = SqlHelper.ExecuteDataset(SqlHelper.GetConnSting(), CommandType.Text, sql).Tables[0];
+                DataTable dt = SqlHelper.ExecuteDataTable(SqlHelper.GetConnSting(), CommandType.Text, sql);
                 foreach (DataRow item in dt.Rows)
                 {
                     Sys_DicTypes dicType = new Sys_DicTypes();

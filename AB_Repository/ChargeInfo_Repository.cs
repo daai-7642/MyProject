@@ -24,7 +24,7 @@ namespace AB_Repository
                 new SqlParameter("@OrderBy",orderBy),
 
             };
-            DataTable dt = SqlHelper.ExecuteDataset(SqlHelper.GetConnSting(), CommandType.StoredProcedure, "Pr_GetChargeInfoPageList", parms).Tables[0];
+            DataTable dt = SqlHelper.ExecuteDataTable(SqlHelper.GetConnSting(), CommandType.StoredProcedure, "Pr_GetChargeInfoPageList", parms);
             rowCount = Convert.ToInt16(parms[0].Value);
             List<ChargeInfo> list = new List<ChargeInfo>();
             if (dt.Rows.Count != 0)

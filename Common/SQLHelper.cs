@@ -477,7 +477,19 @@ namespace Commom
                 return ExecuteDataset(connection, commandType, commandText, commandParameters);
             }
         }
+        public static DataTable ExecuteDataTable(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            if (connectionString == null || connectionString.Length == 0) throw new ArgumentNullException("connectionString");
 
+            // 创建并打开数据库连接对象,操作完成释放对象. 
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // 调用指定数据库连接字符串重载方法. 
+                return ExecuteDataTable(connection, commandType, commandText, commandParameters);
+            }
+        }
         /// <summary> 
         /// 执行指定数据库连接字符串的命令,直接提供参数值,返回DataSet. 
         /// </summary> 
@@ -548,23 +560,59 @@ namespace Commom
             bool mustCloseConnection = false;
             PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
 
+            DataSet ds = new DataSet();
             // 创建SqlDataAdapter和DataSet. 
-            using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+            try
             {
-                DataSet ds = new DataSet();
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
 
-                // 填充DataSet. 
-                da.Fill(ds);
 
-                cmd.Parameters.Clear();
+                    // 填充DataSet. 
+                    da.Fill(ds);
 
-                if (mustCloseConnection)
-                    connection.Close();
+                    cmd.Parameters.Clear();
 
-                return ds;
+                    if (mustCloseConnection)
+                        connection.Close();
+
+
+                }
             }
+            catch (Exception)
+            {
+                 
+            }
+            return ds;
         }
+        public static DataTable ExecuteDataTable(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            if (connection == null) throw new ArgumentNullException("connection");
 
+            // 预处理 
+            SqlCommand cmd = new SqlCommand();
+            bool mustCloseConnection = false;
+            PrepareCommand(cmd, connection, (SqlTransaction)null, commandType, commandText, commandParameters, out mustCloseConnection);
+
+            DataTable dt = new DataTable();
+            // 创建SqlDataAdapter和DataSet. 
+           
+                using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                {
+
+
+                    // 填充DataSet. 
+                    da.Fill(dt);
+
+                    cmd.Parameters.Clear();
+
+                    if (mustCloseConnection)
+                        connection.Close();
+
+
+                } 
+            return dt;
+        }
         /// <summary> 
         /// 执行指定数据库连接对象的命令,指定参数值,返回DataSet. 
         /// </summary> 
