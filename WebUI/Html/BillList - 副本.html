@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+    <style type="text/css">
+       
+    </style>
+  
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+
+    <script src="../js/plugins/footable/footable.js"></script>
+    <!--<script src="/js/plugins/footable/footable.all.min.js"></script>-->
+    <script src="../js/AngularJS.js"></script>
+    <script src="../js/util.js"></script>
+    
+
+  
+    <script>
+     
+        var app = angular.module('BillList', []);
+        app.controller('BillListCtrl', function ($scope, $http) {
+            var index = 1;
+            var vm = $scope.vm = {
+                data: [],
+                pagination: {
+                    perPage: 5,
+                    currentPage: 1,
+                    listcount: 0,
+                    pagecount: 0,
+                },
+                init: function () {
+                    $http({
+                        url: '/home/GetBillList',
+                        data: { index: vm.pagination.currentPage, size: vm.pagination.perPage },
+                        method: 'post',
+                        // dataType: 'json',
+                        async: true,
+                        cache: false,
+                    }).success(function (rtn) {
+                        console.log(rtn);
+                        vm.data = rtn;
+                       
+                     }).error(function (err) {
+                        console.log("error" + err);
+                    })
+                },
+                back: function () {
+                    if (vm.pagination.currentPage <= 1)
+                        return;
+                    vm.pagination.currentPage -= 1;
+                    vm.init();
+                },
+                next: function () {
+                    if (vm.pagination.currentPage >= vm.pagination.pagecount)
+                        return;
+                    vm.pagination.currentPage += 1;
+                    vm.init();
+                }
+            }
+
+
+            vm.init();
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $(".footable").footable(
+      {
+          createDetail: function (element, data) {  //creates the contents of the detail row
+              for (var i = 0; i < data.length; i++) {
+                  element.append(data[i].display);
+              }
+          }
+      })
+            }, 2000);
+        });
+    </script>
+</head>
+<body ng-app="BillList" ng-controller="BillListCtrl">
+  
+                    <table class="footable table table-stripped toggle-arrow-tiny" data-page-size="8">
+                        <thead>
+                            <tr>
+                                <th data-toggle="true">产品</th>
+                                <th>名字</th>
+                                <th>电话</th>
+                                <th data-hide="all">公司</th>
+                                <th data-hide="all">参数</th>
+                                <th data-hide="all">采购数量</th>
+                                <th data-hide="all">日期</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody  >
+                        
+                            <tr ng-repeat="m in  vm.data">
+                                <td> </span>单肩包品牌外贸女包批发</td>
+                                <td>张有为</td>
+                                <td>0800 1111</td>
+                                <td>广州纳依斯商贸发展有限公司</td>
+                                <td><span class="pie">3,1</span></td>
+                                <td>750</td>
+                                <td>2015.08.22</td>
+                                <td><a href="#"><i class="fa fa-check text-navy"></i> 通过</a></td>
+                            </tr>
+                        
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <ul class="pagination pull-right"></ul>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                
+ 
+
+</body>
+</html>
+ 

@@ -1,5 +1,6 @@
 ﻿using AB_Entity;
 using AB_Logic;
+using Commom;
 using Common;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,33 @@ namespace WebUI.Controllers
                 return PartialView("ChargePage",pageList);
             return View(pageList);
         }
-        
+        public ActionResult GetBillList(int Index = 1, int Size = 3)
+        {
+            int rowCount = 0;
+            int pageSize = OperateHelper.GetPageSize;
+            List<ChargeInfo> list = chargeInfoLogic.GetChargeInfoPageList(Index, pageSize, "", " c.CreateTime ", out rowCount);
+             
+            ResultCode result = new ResultCode();
+            result.Items = list;
+            result.Msg = rowCount.ToString();
+            return Json(result);
+        }
 
+        [HttpPost]
+        public ActionResult GetChargeType(int ParentId = 0)
+        {
+            var list = new SysDicType_Logic().GetDicTypesByPid(ParentId.ToString());
+            return Json(list);
+        }
+
+        [HttpPost]
+        public ActionResult AddChargeBill(ChargeInfo entity)
+        {
+
+            entity.CreateTime = DateTime.Now;
+            new ChargeInfo_Logic().AddChargeInfo(entity);
+            return Content("<script>alert('添加成功');location.href='/html/BillList.html'</script>");
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

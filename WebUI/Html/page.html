@@ -1,0 +1,151 @@
+﻿<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <style>
+        .page-list .pagination {
+            float: left;
+        }
+
+            .page-list .pagination span {
+                cursor: pointer;
+            }
+
+            .page-list .pagination .separate span {
+                cursor: default;
+                border-top: none;
+                border-bottom: none;
+            }
+
+                .page-list .pagination .separate span:hover {
+                    background: none;
+                }
+
+        .page-list .page-total {
+            float: left;
+            margin: 25px 20px;
+        }
+
+            .page-list .page-total input, .page-list .page-total select {
+                height: 26px;
+                border: 1px solid #ddd;
+            }
+
+            .page-list .page-total input {
+                width: 40px;
+                padding-left: 3px;
+            }
+
+            .page-list .page-total select {
+                width: 50px;
+            }
+    </style>
+</head>
+<body ng-controller="testController">
+    {{page}}22
+
+    <table id="table_list_2" class="footable table table-stripped toggle-arrow-tiny" data-page-size="8">
+        <thead>
+            <tr>
+                <th data-toggle="true">序号</th>
+                <th>消费时间</th>
+                <th>金额</th>
+                <th>备注</th>
+                <th data-hide="all">详细地址</th>
+                <th data-hide="all">相关人物</th>
+
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="ng-scope footable-even" style="display: table-row;" ng-repeat="m in  data">
+                <td><span class="footable-toggle"></span>{{m.Order}}</td>
+                <td>{{m.ChargeTime1.substr(0,9)}}</td>
+                <td ng-bind="m.Money">0800 1111</td>
+                <td>{{m.RemarkInfo==''?'暂无':m.RemarkInfo}}</td>
+                <td ng-bind="m.Address"> </td>
+                <td ng-bind="m.RelatedPeople"> </td>
+
+                <td><a href="#"><i class="fa fa-check text-navy"></i> 操作</a></td>
+            </tr>
+
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <ul class="pagination pull-right"></ul>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <tm-pagination conf="paginationConf"></tm-pagination>
+    <script src="../js/AngularJS.js"></script>
+    <script src="../js/plugins/pageination/tm.pagination.js"></script>
+    <script src="/js/plugins/footable/footable.all.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+
+                $(".footable").footable();
+            }, 800);
+
+        });
+    </script>
+    <script>
+        
+        angular.module('myApp', ['tm.pagination']).controller('testController', function ($scope, $timeout, $http) {
+        /**
+         * I'm not good at English, wish you you catch what I said And help me improve my English.
+         *
+         * A lightweight and useful pagination directive
+         * conf is a object, it has attributes like below:
+         *
+         * currentPage: Current page number, default 1
+         * totalItems: Total number of items in all pages, if you want to get totalItems from ajaxRequest,
+         *             you can set the totalItems in onChange function;
+         *
+         * itemsPerPage:  number of items per page, default 15
+         * onChange: when the pagination is change, it will excute the function.
+         * pagesLength: number for pagination size, default 9
+         * perPageOptions: defind select how many items in a page, default [10, 15, 20, 30, 50]
+         *
+         */
+            var index=1;
+        $scope.paginationConf = {
+            currentPage: 1,
+            totalItems: 8000,
+            itemsPerPage: 15,
+            pagesLength: 15,
+            perPageOptions: [10, 20, 30, 40, 50],
+            onChange: function () {
+                $http({
+                    url: '/home/GetBillList',
+                    data: { Index: this.currentPage },
+                    method: 'post',
+                    dataType: 'json',
+                    async: true,
+                    cache: false,
+                }).success(function (rtn) {
+                    console.log(rtn);
+                    $scope.data = rtn;
+
+                })
+                index++
+                console.log(this.currentPage)
+            }
+        };
+
+        $scope.nextPage = function ()
+        {
+            alert(3)
+        }
+
+         
+        
+
+    })
+    </script>
+</body>
+</html>

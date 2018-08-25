@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+     <link href="/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+     <link href="/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+
+     <link href="/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/plugins/echarts/echarts-all.js"></script>
+     <script src="../js/AngularJS.js"></script>
+    <script src="../js/util.js"></script>
+    <script src="../js/bootstrap.min.js?v=3.3.6"></script>
+ 
+	<meta charset="utf-8" />
+</head>
+<body ng-app="Statistics">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="ibox float-e-margins" ng-controller="StatisticsCtrl">
+                <div class="ibox-title">
+                    <h5>最近统计图</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="graph_flot.html#">选项1</a>
+                            </li>
+                            <li>
+                                <a href="graph_flot.html#">选项2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="echarts-line-chart"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>饼状图</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="graph_flot.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="graph_flot.html#">选项1</a>
+                                </li>
+                                <li>
+                                    <a href="graph_flot.html#">选项2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="echarts" id="echarts-pie-chart"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </div>
+</body>
+</html>
+<script>
+    
+    var app = angular.module('Statistics', []);
+    app.controller('StatisticsCtrl', function ($scope, $http) {
+        
+        var data = [];
+        $scope.data=function()
+        {
+            util.post('/home/GetChargeStatisDetail', null, function (rtn) {
+                console.log(rtn.Items.ChargeStatisticMonth);
+                var month = [];
+                var curDate = new Date();
+                var curMonth = curDate.getMonth();
+                curDate.setMonth(curMonth + 1);
+                curDate.setDate(0);
+                var date = new Date();
+                date.setDate(1);
+                date.setMonth(date.getMonth()+1)
+                console.log(date.getFullYear() + "/" + date.getMonth() + "/" + (parseInt(date.getDate()) + 1))
+                  for (var i = 1; i < curDate.getDate() ; i++) {
+                   
+                      var dateTime = date.getFullYear() + "/" + date.getMonth() + "/" + (parseInt(date.getDate()) + i)
+                    if (i < new Date().getDate())
+                    {
+                        var money = 0;
+                        $.each(rtn.Items.ChargeStatisticMonth, function (index, value) {
+                            if (dateTime == value.ChargeTime) {
+                                money = value.StatisMoney;
+                            }
+                        })
+
+                        data.push(parseInt(money));
+                    }
+                    month.push(i);
+                 }
+  console.log(data)
+                //chat统计图
+                var e = echarts.init(document.getElementById("echarts-line-chart")),
+          a = {
+              plotOptions: {
+                  series: {
+                      cursor: 'echarts-line-chart',
+                      events: {
+                          click: function (event) {
+                              alert(this.name + ' clicked\n' + 'highcharts 交流群294191384');
+                          }
+                      }
+                  }
+              },
+              title: {
+                  text: "最近一周账单情况"
+              },
+              tooltip: {
+                  trigger: "axis"
+              },
+              legend: {
+                  data: ["消费值"]
+              },
+              grid: {
+                  x: 40,
+                  x2: 40,
+                  y2: 24
+              },
+              calculable: !0,
+              xAxis: [{
+                  type: "category",
+                  boundaryGap: !1,
+                  data: month//["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+              }],
+              yAxis: [{
+                  type: "value",
+                  axisLabel: {
+                      formatter: " {value}￥"
+                  }
+              }],
+              series: [{
+                  name: "消费值",
+                  type: "line",
+                  data: data,
+                  markPoint: {
+                      data: [{
+                          type: "max",
+                          name: "最大值"
+                      }, {
+                          type: "min",
+                          name: "最小值"
+                      }]
+                  },
+                  markLine: {
+                      data: [{
+                          type: "average",
+                          name: "平均值"
+                      }]
+                  }
+              }, ],
+             
+          };
+                e.setOption(a), $(window).resize(e.resize);
+
+            });
+
+        }
+        $scope.data();
+        var l = echarts.init(document.getElementById("echarts-pie-chart")),
+       u = {
+           title: {
+               text: "家庭费用所占百分比",
+               subtext: "",
+               x: "center"
+           },
+           tooltip: {
+               trigger: "item",
+               formatter: "{a} <br/>{b} : {c} ({d}%)"
+           },
+           legend: {
+               orient: "vertical",
+               x: "left",
+               data: ["收入", "支出", "借款(被借方)", "借款(借方)", "还款"]
+           },
+           calculable: !0,
+           series: [{
+               name: "访问来源",
+               type: "pie",
+               radius: "55%",
+               center: ["50%", "60%"],
+               data: [{
+                   value: 10,
+                   name: "收入"
+               }, {
+                   value: 20,
+                   name: "支出"
+               }, {
+                   value: 30,
+                   name: "借款(被借方)"
+               }, {
+                   value: 50,
+                   name: "借款(借方)"
+               }, {
+                   value: 40,
+                   name: "还款"
+               }]
+           }]
+       };
+        l.setOption(u), $(window).resize(l.resize);
+    });
+   
+</script>
+<script src="/js/content.min.js?v=1.0.0"></script>
