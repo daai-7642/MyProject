@@ -17,7 +17,7 @@ namespace WebUI.Controllers
         {
             int rowCount = 0;
             int pageSize = OperateHelper.GetPageSize;
-            List<ChargeInfo> list = new List<ChargeInfo>(); //chargeInfoLogic.GetChargeInfoPageList(pageIndex, pageSize, where, " c.CreateTime ", out rowCount);
+            List<ChargeInfo> list =chargeInfoLogic.GetChargeInfoPageList(pageIndex, pageSize, where, " c.CreateTime ", out rowCount);
             PagedList<ChargeInfo> pageList = new PagedList<ChargeInfo>(list,pageIndex,pageSize,rowCount);
             if (Request.IsAjaxRequest())
                 return PartialView("ChargePage",pageList);

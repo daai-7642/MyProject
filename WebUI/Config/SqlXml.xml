@@ -6,4 +6,26 @@
     as IsChildren
     from Sys_DicTypes dic where State=0
   </SysDicType_Repository.GetAllDicTypes>
+  <ChargeInfo_Repository.AddChargeInfo>
+    INSERT INTO dbo.ChargeInfo
+    ( AccountBookId ,
+    CreateTime ,
+    Money ,
+    ChargeTime ,
+    Address ,
+    RelatedPeople ,
+    RemarkInfo ,
+    TypeId ,
+    CreateAuthor
+    )VALUES  ( NEWID() , -- AccountBookId - uniqueidentifier
+    GETDATE() , -- CreateTime - datetime
+    @Money , -- Money - decimal
+    @ChargeTime , -- ChargeTime - datetime
+    @Address , -- Address - nvarchar(50)
+    @RelatedPeople , -- RelatedPeople - nvarchar(50)
+    @RemarkInfo , -- RemarkInfo - nvarchar(50)
+    @TypeId , -- TypeId - int
+    @CreateAuthor  -- CreateAuthor - int
+    )
+  </ChargeInfo_Repository.AddChargeInfo>
 </Sql>

@@ -51,6 +51,9 @@ namespace AB_Repository
         }
         public int AddChargeInfo(ChargeInfo charge)
         {
+            string key = OperateHelper.GetThisFullMethodName();
+            string sql = OperateHelper.GetXmlSqlString(key,false);
+
             SqlParameter[] parms = new SqlParameter[] {
                 new SqlParameter("@Money",charge.Money),
                 new SqlParameter("@ChargeTime",charge.ChargeTime),
@@ -60,7 +63,7 @@ namespace AB_Repository
                 new SqlParameter("@RemarkInfo",charge.RemarkInfo),
                 new SqlParameter("@CreateAuthor",charge.CreateAuthor)
             };
-            int reval = SqlHelper.ExecuteNonQuery(SqlHelper.GetConnSting(), CommandType.StoredProcedure, "Pr_InsertChargeInfo", parms);
+            int reval = SqlHelper.ExecuteNonQuery(SqlHelper.GetConnSting(), CommandType.Text, sql, parms);
             return reval;
         }
     }
