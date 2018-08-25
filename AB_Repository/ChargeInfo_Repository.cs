@@ -14,6 +14,15 @@ namespace AB_Repository
 
     public class ChargeInfo_Repository
     {
+        string connstr = null;
+        public ChargeInfo_Repository()
+        {
+            connstr=SqlHelper.GetConnSting();
+        }
+        public ChargeInfo_Repository(string _connstr)
+        {
+            connstr = _connstr;
+        }
         public List<ChargeInfo> GetChargeInfoPageList(int pageIndex, int pageSize, string where, string orderBy, out int rowCount)
         {
             SqlParameter[] parms = new SqlParameter[] {
@@ -24,7 +33,7 @@ namespace AB_Repository
                 new SqlParameter("@OrderBy",orderBy),
 
             };
-            DataTable dt = SqlHelper.ExecuteDataTable(SqlHelper.GetConnSting(), CommandType.StoredProcedure, "Pr_GetChargeInfoPageList", parms);
+            DataTable dt = SqlHelper.ExecuteDataTable(connstr, CommandType.StoredProcedure, "Pr_GetChargeInfoPageList", parms);
             rowCount = Convert.ToInt16(parms[0].Value);
             List<ChargeInfo> list = new List<ChargeInfo>();
             if (dt.Rows.Count != 0)
