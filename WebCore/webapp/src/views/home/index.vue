@@ -1,8 +1,7 @@
 <template>
 	<div>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">左右拖动分页9宫</h1>
+			<h1 class="mui-title">主页</h1>
 		</header>
 		<div class="mui-content">
 			 
@@ -13,60 +12,25 @@
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon mui-icon-home"></span>
-									<div class="mui-media-body">Home</div>
+									<div class="mui-media-body">账本</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon mui-icon-email"><span class="mui-badge">5</span></span>
-									<div class="mui-media-body">Email</div>
+									<div class="mui-media-body">统计</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon mui-icon-chatbubble"></span>
-									<div class="mui-media-body">Chat</div>
+									<div class="mui-media-body">记账</div>
 								</a>
 							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-location"></span>
-									<div class="mui-media-body">location</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-search"></span>
-									<div class="mui-media-body">Search</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-phone"></span>
-									<div class="mui-media-body">Phone</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-gear"></span>
-									<div class="mui-media-body">Setting</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-info"></span>
-									<div class="mui-media-body">about</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-more"></span>
-									<div class="mui-media-body">more</div>
-								</a>
-							</li>
+						 
 						</ul>
 					</div>
-					<div class="mui-slider-item">
+					<!--<div class="mui-slider-item">
 						<ul class="mui-table-view mui-grid-view mui-grid-9">
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
@@ -80,114 +44,13 @@
 									<div class="mui-media-body">Email</div>
 								</a>
 							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-chatbubble"></span>
-									<div class="mui-media-body">Chat</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-location"></span>
-									<div class="mui-media-body">location</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-search"></span>
-									<div class="mui-media-body">Search</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-phone"></span>
-									<div class="mui-media-body">Phone</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-gear"></span>
-									<div class="mui-media-body">Setting</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-info"></span>
-									<div class="mui-media-body">about</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-more"></span>
-									<div class="mui-media-body">more</div>
-								</a>
-							</li>
 						</ul>
 					</div>
-					<div class="mui-slider-item">
-						<ul class="mui-table-view mui-grid-view mui-grid-9">
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-home"></span>
-									<div class="mui-media-body">Home</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-email"><span class="mui-badge">5</span></span>
-									<div class="mui-media-body">Email</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-chatbubble"></span>
-									<div class="mui-media-body">Chat</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-location"></span>
-									<div class="mui-media-body">location</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-search"></span>
-									<div class="mui-media-body">Search</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-phone"></span>
-									<div class="mui-media-body">Phone</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-gear"></span>
-									<div class="mui-media-body">Setting</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-info"></span>
-									<div class="mui-media-body">about</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-more"></span>
-									<div class="mui-media-body">more</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-
+				 -->
 				</div>
 				<div class="mui-slider-indicator">
 					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
+					<!--<div class="mui-indicator"></div> -->
 				</div>
 			</div>
 		</div>
