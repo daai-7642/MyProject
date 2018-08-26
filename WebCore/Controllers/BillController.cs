@@ -19,13 +19,15 @@ namespace WebCore.Controllers
         BillContext _context;
         IConfiguration _configuration;
         static string connstr;
+        AB_Logic.ChargeInfo_Logic _Logic;
         public BillController(BillContext billcontext,IConfiguration configuration)
         {
             _configuration = configuration;
             connstr = configuration.GetConnectionString("DefaultConnection");
+            _Logic = new AB_Logic.ChargeInfo_Logic(connstr);
             _context = billcontext;
         }
-        AB_Logic.ChargeInfo_Logic _Logic = new AB_Logic.ChargeInfo_Logic(connstr);
+       
 
         [HttpPost]
         public IActionResult Post([FromBody]ChargeInfo charge)
@@ -34,7 +36,11 @@ namespace WebCore.Controllers
             _context.ChargeInfo.Add(charge);
             int result = _context.SaveChanges();
             //int result = _Logic.AddChargeInfo(charge); 
-            return CreatedAtRoute("bill", charge);
+            ResultCode resultc = new ResultCode();
+            resultc.data = charge;
+            resultc.msg = result>0? "ok":"no";
+            resultc.code = result;
+            return Ok(resultc);
         }
         [HttpGet]
         public IActionResult Get(int index=1,int size=10)

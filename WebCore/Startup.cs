@@ -33,18 +33,27 @@ namespace WebCore
         //    services.AddDbContext<BillContext>(opt =>
         //           opt.UseInMemoryDatabase("AccountBook"));
             services.AddDbContext<BillContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))); 
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+             
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseDeveloperExceptionPage();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            app.UseCors(builder=> {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+                builder.AllowAnyMethod();
+                builder.WithOrigins();
 
+                //builder.WithOrigins("http://localhost:57831") 域名
+            });
             app.UseMvc();
         }
     }
