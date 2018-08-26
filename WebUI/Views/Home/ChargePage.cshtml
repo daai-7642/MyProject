@@ -44,7 +44,7 @@
                                         <dt>消费金额：</dt>
                                         <dd>@item.Money.ToString("0.00")</dd>
                                         <dt>消费时间：</dt>
-                                        <dd>@item.ChargeTime1</dd>
+                                        <dd>@Convert.ToDateTime(item.ChargeTime1).ToString("yyyy年MM月dd日")</dd>
                                         <dt>相关人物：</dt>
                                         <dd>@item.RelatedPeople</dd>
                                         <dt>地址：</dt>

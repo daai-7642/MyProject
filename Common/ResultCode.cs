@@ -8,9 +8,9 @@ namespace Commom
 {
     public  class ResultCode
     {
-        public  int Code { get; set; }
-        public  string Msg { get; set; }
-        public  string Detail { get; set; }
-        public  object Items { get; set; }
+        public  int code { get; set; }
+        public  string msg { get; set; }
+        public  object data { get; set; }
     }
+     
 }

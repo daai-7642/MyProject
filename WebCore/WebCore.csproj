@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AB_Entity\AB_Entity.csproj" />
     <ProjectReference Include="..\AB_Logic\AB_Logic.csproj" />
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 
 </Project>

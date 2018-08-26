@@ -31,8 +31,8 @@ namespace WebUI.Controllers
             List<ChargeInfo> list = chargeInfoLogic.GetChargeInfoPageList(Index, pageSize, "", " c.CreateTime ", out rowCount);
              
             ResultCode result = new ResultCode();
-            result.Items = list;
-            result.Msg = rowCount.ToString();
+            result.data = list;
+            result.msg = rowCount.ToString();
             return Json(result);
         }
 

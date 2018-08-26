@@ -54,8 +54,8 @@
                         cache: false,
                     }).success(function (rtn) {
                    
-                        vm.pagination.listcount = rtn.Msg;
-                        vm.data = rtn.Items;
+                        vm.pagination.listcount = rtn.msg;
+                        vm.data = rtn.data;
                         vm.pagination.pagecount = Math.ceil(rtn.Msg / vm.pagination.perPage)
 
                     }).error(function (err) {
