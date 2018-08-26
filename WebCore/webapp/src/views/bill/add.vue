@@ -10,6 +10,11 @@
 				<h5>信息录入</h5>
 
 				<div class="mui-input-group">
+
+					<div class="mui-input-row">
+						<label>概要：</label>
+						<input type="text" required="" v-model="bill.ChargeName" class="mui-input-clear" placeholder="消费概要">
+					</div>
 					<div class="mui-input-row">
 						<label>类型：</label>
 						<input type="text" required="" v-model="bill.TypeNmae" class="mui-input-clear" placeholder="类型" v-on:click="selecttype">
@@ -49,6 +54,7 @@
 		data() {
 			return {
 				bill: {
+					ChargeName: "",
 					TypeId: "",
 					ChargeTime: "",
 					Money: "",
@@ -61,20 +67,21 @@
 		mounted() {
 
 			const typedata = this.getParams();
-			this.bill.TypeId = typedata.value;
-			this.bill.TypeNmae = typedata.name;
+			if(typedata != null) {
+				this.bill.TypeId = typedata.value;
+				this.bill.TypeNmae = typedata.name;
+			}
 			const date = new Date();
 			const currdate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + date.getDate();
 
 			this.bill.ChargeTime = currdate;
 		},
-
 		methods: {
 			getParams() {
 				// 取到路由带过来的参数 
 				let routerParams = this.$route.query
 				// 将数据放在当前组件的数据内
-				console.log(routerParams);
+				//console.log(routerParams);
 				return routerParams.data;
 			},
 			selecttype() {
@@ -94,7 +101,7 @@
 								//name:"跳转的path也能",
 								query: {
 									name: 'index',
-									data: { }
+									data: {}
 								}
 							})
 						} else {

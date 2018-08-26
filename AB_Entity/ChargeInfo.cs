@@ -14,6 +14,11 @@ namespace AB_Entity
         /// 主键
         /// </summary>
         public System.Guid AccountBookId { get; set; }
+
+        /// <summary>
+        /// 消费概要
+        /// </summary>
+        public string ChargeName { get; set; }
         /// <summary>
         /// 创建时间
         /// </summary>

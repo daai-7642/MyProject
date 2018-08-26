@@ -30,12 +30,13 @@ function getRandColor () {
   var tem = Math.round(Math.random() * colorListLength)
   return colorList[tem]
 }
+ 
 export default
 {
   colorList,
   colorListLength,
   getRandColor,
-  requestServerPath,
+  requestServerPath, 
 }
 </script>
 

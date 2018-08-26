@@ -15,6 +15,10 @@ namespace WebCore.Models
         [Key]
         public System.Guid AccountBookId { get; set; }
         /// <summary>
+        /// 消费概要
+        /// </summary>
+        public string ChargeName { get; set; }
+        /// <summary>
         /// 创建时间
         /// </summary>
         public System.DateTime CreateTime { get; set; } 
