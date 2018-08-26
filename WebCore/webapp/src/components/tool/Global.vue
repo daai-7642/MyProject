@@ -23,9 +23,10 @@ const colorList = [
 ];
 const colorListLength = 20;
 const isDev=true;
-const requestDevServerPath="http://bill.bjwcom.cn:8001/api";
-const requestReleaseServerPath="http://bill.bjwcom.cn:8000/api";
+const requestDevServerPath="http://bill.bjwcom.cn:8002/api";
+const requestReleaseServerPath="http://bill.bjwcom.cn:8001/api";
 const requestServerPath=isDev?requestDevServerPath:requestReleaseServerPath;
+const btnArray = ['否', '是'];
 function getRandColor () {
   var tem = Math.round(Math.random() * colorListLength)
   return colorList[tem]
@@ -37,6 +38,7 @@ export default
   colorListLength,
   getRandColor,
   requestServerPath, 
+  btnArray
 }
 </script>
 

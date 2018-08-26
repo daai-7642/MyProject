@@ -49,7 +49,7 @@ namespace WebCore.Controllers
           //  _context.ChargeInfo.FromSql("Pr_GetChargeInfoPageList",);
             //_context.ChargeInfo .Where().Skip((index-1)*size).Take(size)
             int count = 0;
-            var data= _Logic.GetChargeInfoPageList(index,size,where, " c.CreateTime ", out count);
+            var data= _Logic.GetChargeInfoPageList(index,size,where, " c.CreateTime desc", out count);
             ResultCode result = new ResultCode();
             result.data = data;
             

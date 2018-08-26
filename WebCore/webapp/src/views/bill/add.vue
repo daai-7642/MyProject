@@ -26,7 +26,7 @@
 					</div>
 					<div class="mui-input-row">
 						<label>金额：</label>
-						<input type="number" required="" v-model="bill.Money" class="mui-input-clear" placeholder="相关金额">
+						<input type="number" required="" step="0.01" v-model="bill.Money" class="mui-input-clear" placeholder="相关金额">
 					</div>
 					<div class="mui-input-row">
 						<label>地址：</label>
@@ -39,7 +39,7 @@
 				</div>
 				<div class="mui-button-row">
 					<button type="submit" class="mui-btn mui-btn-primary">确认</button>&nbsp;&nbsp;
-					<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">取消</button>
+					<button type="button" class="mui-btn mui-btn-danger" v-on:click="cancelsub">取消</button>
 				</div>
 			</div>
 		</form>
@@ -61,66 +61,66 @@
 					Address: "",
 					RemarkInfo: ""
 				},
-				//currdate:"2018-08-26"
+				currdate: ""
 			}
 		},
 		mounted() {
-
-			const typedata = this.getParams();
-			if(typedata != null) {
-				this.bill.TypeId = typedata.value;
-				this.bill.TypeNmae = typedata.name;
+			const billdata = this.getParams();
+			if(billdata != null) {
+				this.bill = billdata;
+				sessionStorage.removeItem("billdata");
 			}
 			const date = new Date();
-			const currdate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + date.getDate();
+			this.currdate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + date.getDate();
 
-			this.bill.ChargeTime = currdate;
+			this.bill.ChargeTime = this.currdate;
 		},
 		methods: {
 			getParams() {
 				// 取到路由带过来的参数 
 				let routerParams = this.$route.query
-				// 将数据放在当前组件的数据内
-				//console.log(routerParams);
-				return routerParams.data;
+				// 将数据放在当前组件的数据内 
+				var d = sessionStorage.getItem("billdata");
+				if(d == null)
+					return null;
+				return JSON.parse(d);
 			},
 			selecttype() {
+				let that = this;
+				sessionStorage.setItem("billdata", JSON.stringify(that.bill));
 				this.$router.push({
-					path: 'type',
-					//name: '要跳转的路径的 name,在 router 文件夹下的 index.js 文件内找',
-					params: {}
+					name: "billtype",
 				})
 			},
 			submitdata() {
-				axios.post(global_.requestServerPath + "/bill", this.bill)
+				mui.toast("提交中 ", {
+					duration: 'long',
+					type: 'div'
+				});
+				let that=this;
+				axios.post(global_.requestServerPath + "/bill ", this.bill)
 					.then(resp => {
 						if(resp.data.code == 1) {
-							mui.toast("录入成功");
-							this.$router.push({
-								path: 'index',
-								//name:"跳转的path也能",
-								query: {
-									name: 'index',
-									data: {}
+							mui.confirm("录入成功，是否继续录入", "提示",['取消', '继续'], function(e) {
+								if(e.index == 1) {
+									that.cancelsub();
+								} else {
+									that.$router.push({
+										path: 'index',
+										//name:"跳转的path也能 ", 
+										query: {}
+									})
 								}
 							})
+
 						} else {
-							mui.toast("操作失败");
+							mui.toast("操作失败 ");
 						}
 					})
-				//				axios.get(global_.requestServerPath+"/bill", {
-				//						params: {
-				//							index:1,
-				//							size:3,
-				//						}
-				//					})
-				//					.then(resp => {
-				//						console.log(resp.data);
-				//					}).catch(err => { //
-				//						console.log('请求失败：' + err.status + ',' + err.statusText);
-				//					});
-
-				console.log(JSON.stringify(this.bill));
+			},
+			cancelsub() {
+				this.bill = {};
+				this.bill.ChargeTime = this.currdate;
 			}
 		},
 

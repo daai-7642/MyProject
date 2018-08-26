@@ -5,16 +5,18 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 //bill
 import billindex from '@/views/bill/index'
+import billbindex from '@/views/bill/bindex'
 import billadd from '@/views/bill/add'
 import billtype from '@/views/bill/type'
+import billindexrefresh from '@/views/bill/indexrefresh'
 //home
 import homeindex from '@/views/home/index'
 Vue.use(Router)
 
 export default new Router({
 	routes: [
-	
-	 {
+
+		{
 			path: "/",
 			name: "homeindex",
 			component: homeindex
@@ -30,6 +32,11 @@ export default new Router({
 			component: billindex
 		},
 		{
+			path: '/bill/bindex',
+			name: "billbindex",
+			component: billbindex
+		},
+		{
 			path: "/bill/add",
 			name: "billadd",
 			component: billadd
@@ -38,6 +45,11 @@ export default new Router({
 			path: "/bill/type",
 			name: "billtype",
 			component: billtype
+		},
+		{
+			path: "/bill/billindexrefresh",
+			name: "indexrefresh",
+			component: billindexrefresh
 		}
 	]
 })

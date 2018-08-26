@@ -9,7 +9,7 @@
 				</div>
 				<div class="mui-input-row mui-radio mui-left">
 					<label>收入</label>
-					<input name="radio1" type="radio" v-on:click="typeselect" data-txt="收入"  value="2">
+					<input name="radio1" type="radio" v-on:click="typeselect" data-txt="收入" value="2">
 				</div>
 
 			</form>
@@ -25,21 +25,17 @@
 			}
 		},
 		mounted() {
-
+			//console.log(this.$route.params);
 		},
 		methods: {
-			typeselect: function(event) { 	
-				 
+			typeselect: function(event) { 
+				let bill = JSON.parse(sessionStorage.getItem("billdata"));
+				bill.TypeId = event.target.value;
+				bill.TypeNmae = event.target.dataset.txt;
+				sessionStorage.setItem("billdata", JSON.stringify(bill))
 				this.$router.push({
 					path: 'add',
-					//name:"跳转的path也能",
-					query: {
-					    name: 'name', 
-					    data: {
-					    	name:event.target.dataset.txt,
-					    	value:event.target.value
-					    }
-					}
+
 				})
 			}
 		}

@@ -44,8 +44,8 @@ namespace AB_Repository
                     ChargeInfo entity = new ChargeInfo();
 
                     entity.AccountBookId = Guid.Parse(item["AccountBookId"].ToString());
-                    entity.ChargeName = Convert.ToDateTime(item["ChargeTime"]).ToString("yyyy年MM月dd日"); ;
-                    entity.ChargeTime1 =Convert.ToDateTime(item["ChargeTime"]).ToString("yyyy/MM/dd HH:mm:ss fff");
+                    entity.ChargeName =item["ChargeName"].ToString();
+                    entity.ChargeTime1 =Convert.ToDateTime(item["ChargeTime"]).ToString("yyyy年MM月dd日");
                     entity.Money = decimal.Parse(item["Money"].ToString());
                     entity.Address = item["Address"].ToString();
                     entity.RelatedPeople = item["RelatedPeople"].ToString();

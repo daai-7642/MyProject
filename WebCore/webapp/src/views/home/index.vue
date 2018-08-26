@@ -15,7 +15,7 @@
 					</a>
 				</li>
 				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-					<a href="#">
+					<a href="#/bill/add">
 						<svg class="mui-icon icon" aria-hidden="true">
 							<use xlink:href="#icon-tianjiaadd142"></use>
 						</svg> 
@@ -36,3 +36,6 @@
 		</div>
 	</div>
 </template>
+<script>
+	sessionStorage.clear();
+</script>
