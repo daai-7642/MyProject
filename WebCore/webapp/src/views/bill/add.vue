@@ -117,6 +117,7 @@
 						});
 
 					})
+				return false;
 			},
 			cancelsub() {
 				this.bill = {};
