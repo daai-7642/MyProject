@@ -93,29 +93,29 @@
 				})
 			},
 			submitdata() {
-				mui.toast("提交中 ", {
-					duration: 'long',
-					type: 'div'
-				});
-				let that=this;
+				mui.showLoading("提交中..", "div");
+				let that = this;
 				axios.post(global_.requestServerPath + "/bill ", this.bill)
 					.then(resp => {
-						if(resp.data.code == 1) {
-							mui.confirm("录入成功，是否继续录入", "提示",['取消', '继续'], function(e) {
-								if(e.index == 1) {
-									that.cancelsub();
-								} else {
-									that.$router.push({
-										path: 'index',
-										//name:"跳转的path也能 ", 
-										query: {}
-									})
-								}
-							})
+						mui.hideLoading(function() {
+							if(resp.data.code == 1) {
+								mui.confirm("录入成功，是否继续录入", "提示", ['取消', '继续'], function(e) {
+									if(e.index == 1) {
+										that.cancelsub();
+									} else {
+										that.$router.push({
+											path: 'index',
+											//name:"跳转的path也能 ", 
+											query: {}
+										})
+									}
+								})
 
-						} else {
-							mui.toast("操作失败 ");
-						}
+							} else {
+								mui.toast("操作失败 ");
+							}
+						});
+
 					})
 			},
 			cancelsub() {
