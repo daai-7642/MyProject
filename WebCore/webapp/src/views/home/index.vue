@@ -41,6 +41,7 @@
 	var _toast = false;
 
 	mui.back = function() { 
+		return false;
 		if(!_toast || !_toast.isVisible()) {
 			_toast = mui.toast('再按一次返回键退出', {
 				duration: 'long',
