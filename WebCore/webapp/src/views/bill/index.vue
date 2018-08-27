@@ -38,20 +38,23 @@
 			}
 		},
 		mounted() {
-
+			mui.showLoading("加载中..", "div");
+			setTimeout(function(){
+				mui.hideLoading(h=>{});
+			},5000)
 			axios.get(global_.requestServerPath + "/bill", {
 				params: {
 					index: 1,
-					size: 20
+					size: 10
 				}
 			}).then(resp => {
+				mui.hideLoading(h=>{});
 				//console.log(resp.data.data)
 				this.billdata = resp.data.data;
 			})
 		},
 		methods: {
-			 
+
 		}
 	}
-	  
 </script>

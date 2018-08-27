@@ -9,6 +9,7 @@ import billbindex from '@/views/bill/bindex'
 import billadd from '@/views/bill/add'
 import billtype from '@/views/bill/type'
 import billindexrefresh from '@/views/bill/indexrefresh'
+
 //home
 import homeindex from '@/views/home/index'
 Vue.use(Router)
@@ -50,6 +51,6 @@ export default new Router({
 			path: "/bill/billindexrefresh",
 			name: "indexrefresh",
 			component: billindexrefresh
-		}
+		} 
 	]
 })
