@@ -29,7 +29,6 @@
 <script>
 	import global_ from '@/components/tool/Global'
 	import axios from 'axios'
-	import pullTo from 'vue-pull-to'
 	//import { fetchDataList } from 'api'
 	export default {
 		name: 'billadd',
