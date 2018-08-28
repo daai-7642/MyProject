@@ -45,7 +45,7 @@
 			axios.get(global_.requestServerPath + "/bill", {
 				params: {
 					index: 1,
-					size: 10
+					size: 8
 				}
 			}).then(resp => {
 				mui.hideLoading(h=>{});
