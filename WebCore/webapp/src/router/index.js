@@ -9,7 +9,7 @@ import billbindex from '@/views/bill/bindex'
 import billadd from '@/views/bill/add'
 import billtype from '@/views/bill/type'
  
-//import billlist from '@/views/bill/billlist'
+import billlist from '@/views/bill/blist'
 
 //home
 import homeindex from '@/views/home/index'
@@ -49,10 +49,10 @@ export default new Router({
 			component: billtype
 		},
 	 
-		//{
-		//	path: "/bill/billlist",
-		//	name: "billlist",
-		//	component: billlist
-		//} 
+		{
+			path: "/bill/blist",
+			name: "billlist",
+			component: billlist
+		} 
 	]
 })

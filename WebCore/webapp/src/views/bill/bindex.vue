@@ -8,11 +8,13 @@
 		<load :datalist="billdata"></load>
 	</div>
 </template>
+
 <script>
 	import load from '@/components/bill-refresh'
 	import global_ from '@/components/tool/Global'
 	import axios from 'axios'
-	var pullrefresh=mui('#pullrefresh');
+	 
+	//var pullToRefresh = mui(selector).pullToRefresh(options);
 	export default {
 		//		//el: '#vapp',
 		data() {
@@ -51,7 +53,7 @@
 				let that = this;
 				setTimeout(function() {
 
-					pullrefresh.pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
 					//var cells = document.body.querySelectorAll('.mui-table-view-cell');
 					that.getdate(that);
 //					var newCount = cells.length > 0 ? 5 : 20; //首次加载20条，满屏
@@ -67,13 +69,13 @@
 			pulldownRefresh: function() {
 				console.log("down");
 				//				return false;
+				
 				let that = this;
 				setTimeout(function() {
-					//that.addData(that);
-						
+					//that.addData(that); 
 					that.getdate(that);
-		 
-				pullrefresh.pullRefresh().endPullupToRefresh(true);
+				mui('#pullrefresh').pullRefresh().endPulldown();
+				//mui('#pullrefresh').pullRefresh().endPulldownToRefresh(true);
 					mui.toast("为你推荐了5篇文章");
 				}, 1500);
 			},
