@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AB_Logic;
 using Commom;
+using Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,14 +21,14 @@ namespace WebCore.Controllers
         IConfiguration _configuration;
         static string connstr;
         AB_Logic.ChargeInfo_Logic _Logic;
-        public BillController(BillContext billcontext,IConfiguration configuration)
+        public BillController(BillContext billcontext, IConfiguration configuration)
         {
             _configuration = configuration;
             connstr = configuration.GetConnectionString("DefaultConnection");
             _Logic = new AB_Logic.ChargeInfo_Logic(connstr);
             _context = billcontext;
         }
-       
+
 
         [HttpPost]
         public IActionResult Post([FromBody]ChargeInfo charge)
@@ -38,24 +39,23 @@ namespace WebCore.Controllers
             //int result = _Logic.AddChargeInfo(charge); 
             ResultCode resultc = new ResultCode();
             resultc.data = charge;
-            resultc.msg = result>0? "ok":"no";
+            resultc.msg = result > 0 ? "ok" : "no";
             resultc.code = result;
             return Ok(resultc);
         }
         [HttpGet]
-        public IActionResult Get(int index=1,int size=10)
+        public IActionResult Get(int index = 1, int size = 10)
         {
             string where = "";
-          //  _context.ChargeInfo.FromSql("Pr_GetChargeInfoPageList",);
+            //  _context.ChargeInfo.FromSql("Pr_GetChargeInfoPageList",);
             //_context.ChargeInfo .Where().Skip((index-1)*size).Take(size)
             int count = 0;
-            var data= _Logic.GetChargeInfoPageList(index,size,where, " c.CreateTime desc", out count);
+            var data = _Logic.GetChargeInfoPageList(index, size, where, " c.CreateTime desc", out count);
             ResultCode result = new ResultCode();
             result.data = data;
-            
+
             //return Json(result);
             return Ok(result);
-        }
-
+        } 
     }
 }

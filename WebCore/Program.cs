@@ -15,24 +15,25 @@ namespace WebCore
         public static void Main(string[] args)
         {
             ///////////////////////////
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json", optional: true)
-                .Build();
 
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseConfiguration(config)
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .UseApplicationInsights()
-                .Build();
+            //var config = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("hosting.json", optional: true) 
+            //    .Build();
 
+            //var host = new WebHostBuilder()
+            //    .UseKestrel()
+            //    .UseConfiguration(config)
+            //    .UseContentRoot(Directory.GetCurrentDirectory())
+            //    .UseIISIntegration()
+            //    .UseStartup<Startup>()
+            //    .UseApplicationInsights()
+            //    .Build();
+            //host.Run();
 
             /////////////////////////////
-            host.Run();
-            //BuildWebHost(args).Run();
+
+            BuildWebHost(args).Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

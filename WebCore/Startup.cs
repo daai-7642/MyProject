@@ -21,7 +21,9 @@ namespace WebCore
             var builder = new ConfigurationBuilder().
    SetBasePath(env.ContentRootPath).
    AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).
-   AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+   AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true).
+   AddJsonFile("hosting.json", optional: true)
+                .Build(); 
         
             Configuration = configuration;
         }
@@ -43,11 +45,11 @@ namespace WebCore
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseDeveloperExceptionPage();
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-           
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             app.UseCors(builder=> {
                 builder.AllowAnyOrigin();
                 builder.AllowAnyHeader();
