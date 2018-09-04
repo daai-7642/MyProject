@@ -58,7 +58,12 @@ namespace WebCore
 
                 //builder.WithOrigins("http://localhost:57831") 域名
             });
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "api/{controller=Home}/{action=Index}/{id=0}");
+            });
         }
     }
 }

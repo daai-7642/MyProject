@@ -24,6 +24,6 @@ namespace WebCore.Models
         /// <summary>
         /// 纬度
         /// </summary>
-        public string lnt { get; set; }
+        public string lng { get; set; }
     }
 }
