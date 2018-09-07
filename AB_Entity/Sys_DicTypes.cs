@@ -54,4 +54,11 @@ namespace AB_Entity
     {
         public string id { get; set; }
     }
+    public class AppTree
+    {
+        public string value { get; set; }
+        public string text { get; set; }
+        public List<AppTree> children { get; set; }
+    }
+    
 }

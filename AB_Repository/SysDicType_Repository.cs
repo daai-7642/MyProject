@@ -40,8 +40,8 @@ namespace AB_Repository
             if (obj == null)
             {
                 List<Sys_DicTypes> dicTypes = new List<Sys_DicTypes>();
-                string sql = OperateHelper.GetXmlSqlString(key);
-                DataTable dt = SqlHelper.ExecuteDataTable(SqlHelper.GetConnSting(), CommandType.Text, sql);
+               // string sql = OperateHelper.GetXmlSqlString(key);
+                DataTable dt = GetDicTypeTab();
                 foreach (DataRow item in dt.Rows)
                 {
                     Sys_DicTypes dicType = new Sys_DicTypes();
@@ -56,6 +56,11 @@ namespace AB_Repository
                 obj = dicTypes;
             }
             return obj as List<Sys_DicTypes>;
+        }
+        public DataTable GetDicTypeTab()
+        { 
+             string sql = OperateHelper.GetXmlSqlString("SysDicType_Repository.GetAllDicTypes");
+            return SqlHelper.ExecuteDataTable(SqlHelper.GetConnSting(), CommandType.Text, sql);
         }
         public List<DicTypeTree> GetAllDicTypeTreeList()
         {

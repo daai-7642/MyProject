@@ -16,15 +16,16 @@ namespace WebCore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostingEnvironment  env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder().
    SetBasePath(env.ContentRootPath).
    AddJsonFile("appsettings.json", optional: false, reloadOnChange: true).
    AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true).
-   AddJsonFile("hosting.json", optional: true)
-                .Build(); 
-        
+   AddJsonFile("hosting.json", optional: true).
+   AddXmlFile("SQLXml.xml",optional:true)
+                .Build();
+
             Configuration = configuration;
         }
 
@@ -33,11 +34,11 @@ namespace WebCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-        //    services.AddDbContext<BillContext>(opt =>
-        //           opt.UseInMemoryDatabase("AccountBook"));
+            //    services.AddDbContext<BillContext>(opt =>
+            //           opt.UseInMemoryDatabase("AccountBook"));
             services.AddDbContext<BillContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-             
+
             services.AddMvc();
         }
 
@@ -50,7 +51,8 @@ namespace WebCore
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder=> {
+            app.UseCors(builder =>
+            {
                 builder.AllowAnyOrigin();
                 builder.AllowAnyHeader();
                 builder.AllowAnyMethod();
