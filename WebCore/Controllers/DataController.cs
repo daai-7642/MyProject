@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AB_Entity;
+using AB_Logic;
+using Commom;
 using Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -12,10 +14,14 @@ namespace WebCore.Controllers
     public class DataController : Controller
     {
         IConfiguration _configuration;
-        AB_Logic.SysDicType_Logic logic = new AB_Logic.SysDicType_Logic();
+        SysDicType_Logic logic = new SysDicType_Logic();
+        static string connstr;
+        AB_Logic.ChargeInfo_Logic chargeLogic;
         public DataController(IConfiguration configuration)
         {
             _configuration = configuration;
+            connstr = configuration.GetConnectionString("DefaultConnection");
+            chargeLogic = new AB_Logic.ChargeInfo_Logic(connstr);
         }
         public IActionResult Index()
         {
@@ -23,8 +29,8 @@ namespace WebCore.Controllers
         }
         public string GetIciba()
         {
-            string url =string.Format(_configuration["AppSetting:jsciba"],DateTime.Now.ToString("yyyy-MM-dd"));
-            string result = HttpHelper.Get(url); 
+            string url = string.Format(_configuration["AppSetting:jsciba"], DateTime.Now.ToString("yyyy-MM-dd"));
+            string result = HttpHelper.Get(url);
             return result;
         }
         /// <summary>
@@ -33,8 +39,8 @@ namespace WebCore.Controllers
         /// <returns></returns>
         public ActionResult GetChargeType()
         {
-            List<AppTree> appTrees= new List<AB_Entity.AppTree>();
-            var list= logic.GetTrees( "0");
+            List<AppTree> appTrees = new List<AB_Entity.AppTree>();
+            var list = logic.GetTrees("0");
             return Json("");
         }
         public string GetOne()
@@ -43,5 +49,25 @@ namespace WebCore.Controllers
             string result = HttpHelper.Get(url);
             return result;
         }
+        [HttpPost]
+        public ActionResult DeleteBill(string id)
+        {
+            ResultCode resultc = new ResultCode();
+            Guid gid ;
+            Guid.TryParse(id,out gid);
+            if (gid == Guid.Empty)
+            {
+                resultc.msg ="id无效";
+                resultc.code = 0;
+                return Ok(resultc); 
+            }
+            int result = chargeLogic.DeleteChargeInfo(gid);
+            
+
+            resultc.msg = result > 0 ? "ok" : "no";
+            resultc.code = result;
+            return Ok(resultc);
+        }
+       
     }
 }

@@ -17,7 +17,7 @@ namespace AB_Logic
         }
         public ChargeInfo_Logic()
         {
-              chargeInfoRepository = new ChargeInfo_Repository();
+            chargeInfoRepository = new ChargeInfo_Repository();
         }
 
         public List<ChargeInfo> GetChargeInfoPageList(int pageIndex, int pageSize, string where, string orderBy, out int rowCount)
@@ -27,6 +27,10 @@ namespace AB_Logic
         public int AddChargeInfo(ChargeInfo charge)
         {
             return chargeInfoRepository.AddChargeInfo(charge);
+        }
+        public int DeleteChargeInfo(Guid id)
+        {
+            return chargeInfoRepository.DeleteChargeInfo(id);
         }
     }
 }

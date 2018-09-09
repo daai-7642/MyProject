@@ -76,5 +76,12 @@ namespace AB_Repository
             int reval = SqlHelper.ExecuteNonQuery(SqlHelper.GetConnSting(), CommandType.Text, sql, parms);
             return reval;
         }
+        public int DeleteChargeInfo(Guid id)
+        {
+            string sql = "update chargeinfo set [status]=1 where accountbookid=@accountbookid ";
+            SqlParameter parm = new SqlParameter("@accountbookid",id);
+            int reval = SqlHelper.ExecuteNonQuery(connstr, CommandType.Text, sql, parm);
+            return reval;
+        }
     }
 }
