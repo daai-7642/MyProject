@@ -7,18 +7,22 @@ using AB_Logic;
 using Commom;
 using Common;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using WebCore.Models;
 
 namespace WebCore.Controllers
 {
     public class DataController : Controller
     {
+        BillContext _context;
         IConfiguration _configuration;
         SysDicType_Logic logic = new SysDicType_Logic();
         static string connstr;
         AB_Logic.ChargeInfo_Logic chargeLogic;
-        public DataController(IConfiguration configuration)
+        public DataController(IConfiguration configuration, BillContext billContext)
         {
+            _context = billContext;
             _configuration = configuration;
             connstr = configuration.GetConnectionString("DefaultConnection");
             chargeLogic = new AB_Logic.ChargeInfo_Logic(connstr);
@@ -67,6 +71,13 @@ namespace WebCore.Controllers
             resultc.msg = result > 0 ? "ok" : "no";
             resultc.code = result;
             return Ok(resultc);
+        }
+
+        public ActionResult GetWeekStatistics()
+        {
+            //Pr_Week_Statistics
+            var data = _context.WeekStatistics.FromSql("EXECUTE Pr_Week_Statistics").ToList();
+            return Ok("");
         }
        
     }
