@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,7 +10,18 @@ namespace WebCore.Models
     public class WeekStatistics
     {
         [Key]
-        public string name { get; set; }
-        public string value { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+        [JsonProperty(PropertyName = "value")]
+        public decimal Money { get; set; }
+    }
+    public class UpMonthStatistics
+    {
+        [Key]
+        [JsonProperty(PropertyName = "name")]
+        public DateTime Date { get; set; }
+        
+        [JsonProperty(PropertyName = "value")]
+        public decimal Money { get; set; }
     }
 }

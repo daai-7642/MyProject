@@ -75,10 +75,43 @@ namespace WebCore.Controllers
 
         public ActionResult GetWeekStatistics()
         {
-            //Pr_Week_Statistics
-            var data = _context.WeekStatistics.FromSql("EXECUTE Pr_Week_Statistics").ToList();
-            return Ok("");
+            var data = _context.WeekStatistics.FromSql("EXECUTE Pr_Week_Statistics");
+            var arr = from d in data select d.Name;
+            ResultCode result = new ResultCode();
+            result.data = new { titleArr = arr, dataList=data };
+            result.msg = "获取统计";
+            result.code = 200; 
+            return Ok(result);
+        } 
+        public ActionResult GetUpMonth_Statistics()
+        {
+            var data = _context.UpMonthStatistics.FromSql("EXECUTE Pr_UpMonth_Statistics").ToList();
+            string  upDay1 = DateTime.Now.AddMonths(-1).ToString("yyyy-MM-01");
+            string currDay1 = DateTime.Now.ToString("yyyy-MM-01");
+            double num = (Convert.ToDateTime(currDay1) - Convert.ToDateTime(upDay1)).TotalDays;
+            DateTime date = Convert.ToDateTime(upDay1);
+            for (int i = 0; i < num; i++)
+            {
+                DateTime currDate = date.AddDays(i);
+                UpMonthStatistics upModel = data.FirstOrDefault(a => a.Date == currDate);
+                if ( upModel== null)
+                {
+                    data.Add(new UpMonthStatistics() {
+                        Date = currDate,
+                        
+                    });
+                } 
+            }
+            //foreach (var d in data)
+            //{
+            //    if(d.Date.ToString("yyyy-MM-dd"))
+            //}
+            object arr =  from d in data select d.Name;
+            ResultCode result = new ResultCode();
+            result.data = new { titleArr = arr, dataList = data };
+            result.msg = "获取统计";
+            result.code = 200;
+            return Ok(result);
         }
-       
     }
 }

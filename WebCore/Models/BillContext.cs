@@ -15,5 +15,7 @@ namespace WebCore.Models
 
         public DbSet<ChargeInfo> ChargeInfo { get; set; } 
         public DbSet<WeekStatistics> WeekStatistics { get; set; }
+        public DbSet<UpMonthStatistics> UpMonthStatistics { get; set; }
+        
     }
 }
