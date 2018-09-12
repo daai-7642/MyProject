@@ -106,7 +106,7 @@ namespace WebCore.Controllers
             //{
             //    if(d.Date.ToString("yyyy-MM-dd"))
             //}
-            object arr =  from d in data select d.Name;
+            object arr = string.Empty;// from d in data select d.Name;
             ResultCode result = new ResultCode();
             result.data = new { titleArr = arr, dataList = data };
             result.msg = "获取统计";
